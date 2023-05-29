@@ -13,7 +13,7 @@ There are a few things to note:
 1. Life106Parser is a parser class for #Life 1.06 files. It will process a file called input.txt and pass coordinates to the game.
 2. IGameOfLife is a simple interface for any game of life implementation. It includes some basic functionality with the assumption that all implementations of GOL will require those functions.
 3. IGameOfLifeRuleSet is an interface to abstract the rules used for a specific implementation.
-4. The print function is very basic and only prints a section of 20x20 centered around the origin (0, 0).
+4. The print function is very basic and only prints sections specified.
 
 
 Future work:
