@@ -22,7 +22,6 @@ public class GameOfLifeDictionaryBool : IGameOfLife<bool>
         return _liveCells.ContainsKey((row, column)) ? true : false;
     }
 
-
     public void nextGeneration()
     {
         // First ensure that our _nextGen and _processedCells are cleared out
@@ -83,6 +82,7 @@ public class GameOfLifeDictionaryBool : IGameOfLife<bool>
         return _liveCells;
     }
 
+    // Returns a list of all neighbors for a given coordinate
     private Dictionary<(long, long), bool> GetNeighbors(long row, long column)
     {
         var neighbors = new Dictionary<(long, long), bool>();
@@ -106,13 +106,7 @@ public class GameOfLifeDictionaryBool : IGameOfLife<bool>
         return neighbors;
     }
 
-    private void ApplyRule(long row, long column, bool cell, Dictionary<(long, long), bool> neighbors)
-    {
-        if (_ruleSet.ApplyRule(cell, neighbors)) {
-            _nextGen[(row, column)] = true;
-        }
-    }
-
+    // Supports wrapping around the edges of our world. Currently assumes long.MaxValue / long.MinValue for world size
     private long GetWrapAroundCoordinate(long coord, int displacement) {
 
         if (coord == long.MaxValue && displacement == 1) {
@@ -123,4 +117,14 @@ public class GameOfLifeDictionaryBool : IGameOfLife<bool>
             return coord + displacement;
         }     
     }
+
+    // Given a cell state and a list of neighbors, sets the state for the next generation
+    private void ApplyRule(long row, long column, bool cell, Dictionary<(long, long), bool> neighbors)
+    {
+        if (_ruleSet.ApplyRule(cell, neighbors)) {
+            _nextGen[(row, column)] = true;
+        }
+    }
+
+
 }

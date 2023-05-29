@@ -1,6 +1,7 @@
 // This class parses an input file of the #Life 1.06 style
 class Life106Parser
 {
+    public const string LIFE_106_HEADER = "#Life 1.06";
     public static List<(long, long)> ParseFile(string filePath)
     {
         List<(long, long)> coordinates = new List<(long, long)>();
@@ -9,7 +10,7 @@ class Life106Parser
         if (lines.Length <= 0) {
             return coordinates;
         }
-        
+
         for (var i = 1; i < lines.Length; i++)
         {
             var line = lines[i];
@@ -50,7 +51,7 @@ class Life106Parser
         }
 
         // Check if the file starts with the correct header
-        if (!lines[0].Equals("#Life 1.06", StringComparison.OrdinalIgnoreCase))
+        if (!lines[0].Equals(LIFE_106_HEADER, StringComparison.OrdinalIgnoreCase))
         {
             Console.WriteLine("Invalid file format. Expected Life 1.06 format.");
             return new string[0];

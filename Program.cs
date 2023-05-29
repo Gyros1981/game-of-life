@@ -1,5 +1,8 @@
 ﻿class Program
 {
+    private const string FILE_OUTPUT = "output.life";
+    private const int NUM_GENERATOINS = 10;
+
     static void Main(string[] args)
     {
         // We are accepting a file to read in coordinates from args
@@ -20,25 +23,26 @@
         // Start our game with dictionary
         IGameOfLife<bool> game = new GameOfLifeDictionaryBool();
 
-        // Process the file contents
+        // Add all live cells to our implementation
         foreach (var coordinate in coordinates)
         {
             game.SetCellState(coordinate.Item1, coordinate.Item2, true);
         }
 
-        for (var i = 0; i < 10; i++) {
+        // Run 10 generations
+        for (var i = 0; i < NUM_GENERATOINS; i++) {
             game.nextGeneration();
             game.print(-20, 10, -20, 10);
         }
 
+        // Export the current state to a file
         WriteToFile(game.GetLiveCells());
     }
 
     static void WriteToFile(Dictionary<(long, long), bool> liveCells) {
-        string filePath = "output.life";
-        using (StreamWriter writer = new StreamWriter(filePath))
+        using (StreamWriter writer = new StreamWriter(FILE_OUTPUT))
         {
-            writer.WriteLine("#Life 1.06");
+            writer.WriteLine(Life106Parser.LIFE_106_HEADER);
             // Write the coordinates to the file
             foreach (var (coordinate, value) in liveCells)
             {
