@@ -1,29 +1,15 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-
+// This class parses an input file of the #Life 1.06 style
 class Life106Parser
 {
     public static List<(long, long)> ParseFile(string filePath)
     {
         List<(long, long)> coordinates = new List<(long, long)>();
 
-        string[] lines = File.ReadAllLines(filePath);
-
-        // Check that the file has contents
-        if (lines.Length < 0) {
-            Console.WriteLine("Empty file provided");
+        string[] lines = validateFileAndContents(filePath);
+        if (lines.Length <= 0) {
             return coordinates;
         }
-
-        // Check if the file starts with the correct header
-        if (!lines[0].Equals("#Life 1.06", StringComparison.OrdinalIgnoreCase))
-        {
-            Console.WriteLine("Invalid file format. Expected Life 1.06 format.");
-            // Potentially throw an error here?
-            return coordinates;
-        }
-
+        
         for (var i = 1; i < lines.Length; i++)
         {
             var line = lines[i];
@@ -47,5 +33,28 @@ class Life106Parser
         }
 
         return coordinates;
+    }
+
+    private static string[] validateFileAndContents(string filePath) {
+        if (!File.Exists(filePath)) {
+            Console.WriteLine($"File not found {filePath}");
+            return new string[0];
+        }
+
+        string[] lines = File.ReadAllLines(filePath);
+    
+        // Check that the file has contents
+        if (lines.Length < 0) {
+            Console.WriteLine("Empty file provided");
+            return new string[0];
+        }
+
+        // Check if the file starts with the correct header
+        if (!lines[0].Equals("#Life 1.06", StringComparison.OrdinalIgnoreCase))
+        {
+            Console.WriteLine("Invalid file format. Expected Life 1.06 format.");
+            return new string[0];
+        }
+        return lines;
     }
 }

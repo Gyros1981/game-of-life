@@ -26,9 +26,9 @@
             game.SetCellState(coordinate.Item1, coordinate.Item2, true);
         }
 
-        for (var i = 0; i < 11; i++) {
+        for (var i = 0; i < 10; i++) {
             game.nextGeneration();
-            game.print();
+            game.print(-20, 10, -20, 10);
         }
 
         WriteToFile(game.GetLiveCells());

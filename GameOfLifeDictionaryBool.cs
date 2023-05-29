@@ -48,21 +48,20 @@ public class GameOfLifeDictionaryBool : IGameOfLife<bool>
         _liveCells = new Dictionary<(long, long), bool>(_nextGen);
     }
 
-    // TODO: Need to make this more generic but it's not easy printing the entire board so need another solution
-    public void print() {
+    public void print(long minX, long maxX, long minY, long maxY) {
         string gridString = "";
 
         gridString += "   ";
-        for (long x = -10; x <= 10; x++)
+        for (long x = minX; x <= maxX; x++)
         {
             gridString += $"{x,3}";
         }
         gridString += "\n";
 
-        for (long y = -10; y <= 10; y++)
+        for (long y = minY; y <= maxY; y++)
         {
             gridString += $"{y,3}";
-            for (long x = -10; x <= 10; x++)
+            for (long x = minX; x <= maxX; x++)
             {
                 if (_liveCells.ContainsKey((x, y)))
                 {
