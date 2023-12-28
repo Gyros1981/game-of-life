@@ -40,14 +40,12 @@
     }
 
     static void WriteToFile(Dictionary<(long, long), bool> liveCells) {
-        using (StreamWriter writer = new StreamWriter(FILE_OUTPUT))
+        using StreamWriter writer = new StreamWriter(FILE_OUTPUT);
+        writer.WriteLine(Life106Parser.LIFE_106_HEADER);
+        // Write the coordinates to the file
+        foreach (var (coordinate, value) in liveCells)
         {
-            writer.WriteLine(Life106Parser.LIFE_106_HEADER);
-            // Write the coordinates to the file
-            foreach (var (coordinate, value) in liveCells)
-            {
-                writer.WriteLine($"{coordinate.Item1} {coordinate.Item2}");
-            }
+            writer.WriteLine($"{coordinate.Item1} {coordinate.Item2}");
         }
     }
 }
