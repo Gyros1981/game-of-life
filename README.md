@@ -3,7 +3,7 @@
 This is a simple implementation of Conner's Game of Life. 
 
 Program.cs file will read list of nodes from input.txt file and run 10 generations. It will output the live cell state to an output.life file. 
-The implementation can support up to long rows and long columns and uses a sparse representation for live cells only.
+The implementation can support up to `long` rows and `long` columns and uses a sparse representation for live cells only.
 It currently uses the base ruleset for game of life -> a live cell remains alive if it has 2 or 3 live neighbors (otherwise it dies). A dead cell becomes alive if it has exactly 3 live neighbors.
 
 To run locally without visual studio make sure you have dotnet installed and in the project directory run `dotnet run -- input.txt`
